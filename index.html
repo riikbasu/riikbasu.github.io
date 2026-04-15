@@ -495,6 +495,64 @@
       opacity: 0.3;
     }
 
+    /* ── BLOG SUB-NAV ───────────────────────────────────────────── */
+    .blog-subnav {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    .blog-sub-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-family: var(--ff-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 9px 20px;
+      border-radius: 100px;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .blog-sub-btn:hover {
+      color: var(--text);
+      border-color: var(--gold-dim);
+    }
+    .blog-sub-btn.active {
+      background: rgba(201,168,76,0.1);
+      border-color: var(--gold);
+      color: var(--amber);
+    }
+    .blog-category { display: none; }
+    .blog-category.active {
+      display: block;
+      animation: fadeUp 0.35s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    .blog-category-heading {
+      font-family: var(--ff-display);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .blog-category-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-weight: 300;
+      line-height: 1.7;
+      margin-bottom: 28px;
+      max-width: 560px;
+    }
+    /* accent colours per category */
+    .blog-card[data-cat="academic"]::before    { background: linear-gradient(to right, var(--gold), transparent); }
+    .blog-card[data-cat="travel"]::before      { background: linear-gradient(to right, #5b9b8a, transparent); }
+    .blog-card[data-cat="reflections"]::before { background: linear-gradient(to right, #8b7bb5, transparent); }
+    .blog-card[data-cat="travel"] .card-tag    { color: #5b9b8a; }
+    .blog-card[data-cat="reflections"] .card-tag { color: #8b7bb5; }
+    .blog-card[data-cat="travel"]:hover        { border-color: #3d6b5e; }
+    .blog-card[data-cat="reflections"]:hover   { border-color: #5e4f82; }
+
     /* ── FOOTER ─────────────────────────────────────────────────── */
     footer {
       margin-top: 80px;
@@ -694,28 +752,92 @@
       <div class="section-eyebrow">// field notes &amp; ideas</div>
       <h2 class="section-heading">The <em>Blog</em></h2>
       <p class="blog-intro">
-        A space for writing — field notes from research, thoughts on geophysics,
-        methods I'm exploring, and ideas that don't fit neatly anywhere else.
+        A space for writing across three threads — research and science, places I've
+        been, and thoughts that don't fit neatly anywhere else.
       </p>
-      <div class="blog-grid">
-        <!-- Placeholder cards — replace with real posts when ready -->
-        <div class="blog-card">
-          <div class="card-tag">Research Note</div>
-          <div class="card-title">What seismic waves reveal about crustal composition</div>
-          <div class="card-preview">A primer on how body waves carry information about the materials they pass through — and what that means for subsurface imaging.</div>
-          <div class="card-date">Coming soon</div>
+
+      <!-- Sub-navigation -->
+      <div class="blog-subnav">
+        <button class="blog-sub-btn active" onclick="openBlogCat(event,'cat-academic')">Academic</button>
+        <button class="blog-sub-btn"        onclick="openBlogCat(event,'cat-travel')">Travel</button>
+        <button class="blog-sub-btn"        onclick="openBlogCat(event,'cat-reflections')">Reflections</button>
+      </div>
+
+      <!-- ── ACADEMIC ── -->
+      <div id="cat-academic" class="blog-category active">
+        <div class="blog-category-heading">Academic</div>
+        <p class="blog-category-desc">Research notes, methods, and ideas from the world of geophysics and earth sciences.</p>
+        <div class="blog-grid">
+          <div class="blog-card" data-cat="academic">
+            <div class="card-tag">Research Note</div>
+            <div class="card-title">What seismic waves reveal about crustal composition</div>
+            <div class="card-preview">A primer on how body waves carry information about the materials they pass through — and what that means for subsurface imaging.</div>
+            <div class="card-date">Coming soon</div>
+          </div>
+          <div class="blog-card" data-cat="academic">
+            <div class="card-tag">Methods</div>
+            <div class="card-title">Full-waveform inversion: intuition before the equations</div>
+            <div class="card-preview">FWI is one of the most powerful tools in applied geophysics. Here's how to build intuition for it before diving into the maths.</div>
+            <div class="card-date">Coming soon</div>
+          </div>
+          <div class="blog-card" data-cat="academic">
+            <div class="card-tag">Explainer</div>
+            <div class="card-title">Ground-penetrating radar: seeing through soil</div>
+            <div class="card-preview">How GPR works, where it shines, and what its limitations tell us about the challenges of near-surface geophysics.</div>
+            <div class="card-date">Coming soon</div>
+          </div>
         </div>
-        <div class="blog-card">
-          <div class="card-tag">Methods</div>
-          <div class="card-title">Full-waveform inversion: intuition before the equations</div>
-          <div class="card-preview">FWI is one of the most powerful tools in applied geophysics. Here's how to build intuition for it before diving into the maths.</div>
-          <div class="card-date">Coming soon</div>
+      </div>
+
+      <!-- ── TRAVEL ── -->
+      <div id="cat-travel" class="blog-category">
+        <div class="blog-category-heading">Travel</div>
+        <p class="blog-category-desc">Dispatches from fieldwork, conferences, and wandering — geology as a lens for every landscape.</p>
+        <div class="blog-grid">
+          <div class="blog-card" data-cat="travel">
+            <div class="card-tag">Fieldwork</div>
+            <div class="card-title">Reading the Alps: what the rocks say when you slow down</div>
+            <div class="card-preview">A week in the Swiss Alps during my time at ETH Zürich, looking at landscapes through a geophysicist's eyes.</div>
+            <div class="card-date">Coming soon</div>
+          </div>
+          <div class="blog-card" data-cat="travel">
+            <div class="card-tag">Conference</div>
+            <div class="card-title">AGU fall meeting — first impressions</div>
+            <div class="card-preview">Notes from my first experience at one of the largest earth and space science conferences in the world.</div>
+            <div class="card-date">Coming soon</div>
+          </div>
+          <div class="blog-card" data-cat="travel">
+            <div class="card-tag">Exploration</div>
+            <div class="card-title">Canberra's geology: what's under the capital</div>
+            <div class="card-preview">The ACT sits on some surprisingly interesting geology. A local's guide to the rocks beneath the city.</div>
+            <div class="card-date">Coming soon</div>
+          </div>
         </div>
-        <div class="blog-card">
-          <div class="card-tag">Reflection</div>
-          <div class="card-title">From IIT to IDEA League to ANU — a geophysicist's path</div>
-          <div class="card-preview">Three universities, three countries, one discipline. Some reflections on what changes and what stays constant when you move across institutions.</div>
-          <div class="card-date">Coming soon</div>
+      </div>
+
+      <!-- ── REFLECTIONS ── -->
+      <div id="cat-reflections" class="blog-category">
+        <div class="blog-category-heading">Reflections</div>
+        <p class="blog-category-desc">Personal essays on academia, identity, the PhD experience, and the long arc of a scientific life.</p>
+        <div class="blog-grid">
+          <div class="blog-card" data-cat="reflections">
+            <div class="card-tag">Personal</div>
+            <div class="card-title">From IIT to IDEA League to ANU — a geophysicist's path</div>
+            <div class="card-preview">Three universities, three countries, one discipline. Reflections on what changes and what stays constant when you move across institutions.</div>
+            <div class="card-date">Coming soon</div>
+          </div>
+          <div class="blog-card" data-cat="reflections">
+            <div class="card-tag">PhD Life</div>
+            <div class="card-title">Why I chose earth sciences — and why I'd choose it again</div>
+            <div class="card-preview">An honest account of what drew me to geophysics, and what keeps me here on the harder days of a PhD.</div>
+            <div class="card-date">Coming soon</div>
+          </div>
+          <div class="blog-card" data-cat="reflections">
+            <div class="card-tag">Essay</div>
+            <div class="card-title">On being an international student in three countries</div>
+            <div class="card-preview">India, Europe, Australia. Moving between academic cultures has shaped how I think about knowledge, belonging, and research.</div>
+            <div class="card-date">Coming soon</div>
+          </div>
         </div>
       </div>
     </div>
@@ -736,6 +858,13 @@
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
       document.getElementById(tabName).classList.add('active');
+      evt.currentTarget.classList.add('active');
+    }
+
+    function openBlogCat(evt, catId) {
+      document.querySelectorAll('.blog-category').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.blog-sub-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById(catId).classList.add('active');
       evt.currentTarget.classList.add('active');
     }
   </script>
